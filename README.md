@@ -131,7 +131,7 @@ The example below is for Frontier, but if you are using Andes or Odo you can use
 To get to this script 
 
 ```
-cd python_hands-on. 
+cd python_hands-on
 
 ```
 
@@ -161,7 +161,7 @@ date
 module load PrgEnv-gnu
 module load miniforge3
 
-source activate /ccs/proj/stf007/suzanne/mpi4py_env_frontier
+source activate /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env
 
 srun -n42 python3 -u hello_mpi.py
 ```
@@ -194,5 +194,5 @@ Hello from MPI rank 0 !
 Hello from MPI rank 1 !
 Hello from MPI rank 32 !
 
-Congratulations! You have the tools and knowledge you need to user python on Frontier! 
-# using_python_olcf
+Congratulations! You have the tools and knowledge you need to start using python on Frontier! 
+
