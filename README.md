@@ -60,6 +60,7 @@ The "-p" flag specifies the desired path and name of your new virtual environmen
 
 
 A Note on Organization:
+
 I chose to create a `.conda` directory to keep my Python environments organized and separate from a plain directory listing. Within `.conda`, I created a `frontier` subdirectory to store all my environments specifically for Frontier. While both Frontier and Andes mount the home and project areas, an environment built for one machine cannot be assumed to work seamlessly on the other, so it is important to have an orgaization strucutre for your python envoriments from the start.
 
 
@@ -122,7 +123,7 @@ To test the mpi4py we just installed in the exercise above, we will use an examp
 
 To do so, we will be submitting a job to the batch queue with "submit_hello.sbatch":
 
-This part of the hands-on covers the (How to Run)[https://docs.olcf.ornl.gov/software/python/index.html#how-to-run] section of the Python on OLCF system Guide. 
+This part of the hands-on covers the [How to Run](https://docs.olcf.ornl.gov/software/python/index.html#how-to-run) section of the Python on OLCF system Guide. 
 
 The example below is for Frontier, but if you are using Andes or Odo you can use the guide linked above to understand how to ajust the commands accordingly. 
 
