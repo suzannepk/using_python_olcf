@@ -135,15 +135,16 @@ cd python_hands-on
 
 ```
 
-On Frontier and Andes, you are already on a compute node once you are in a batch job. Therefore, you only need to use srun if you plan to run parallel-enabled Python, and you do not need to specify srun if you are running a serial application.
 
-$PATH issues are known to occur if not submitting from a fresh login shell, which can result in the wrong environment being detected. To avoid this, you must use the `--export=NONE` flag during job submission and use `unset SLURM_EXPORT_ENV` in your job script (before calling srun), which ensures that no previously set environment variables are passed into the batch job, but makes sure that srun can still find your python path:
+On Frontier Odo, and Andes, you're already on a compute node once inside a batch job.
+* Use srun only for parallel-enabled Python; don't use it for serial applications.
+* $PATH issues can occur if submitting from a non-fresh login shell, leading to the wrong environment being detected.
+* To prevent this:
+          * Use --export=NONE when submitting a job.
+          * Unset SLURM_EXPORT_ENV in your job script before calling srun.
+          * Load modules and activate your environment inside the batch script.
 
-```bash
-$ sbatch --export=NONE submit_hello.sbatch
-```
-
-This means you will have to load your modules and activate your environment inside the batch script. An example batch script for is provided below:
+An example batch script for this is provided below:
 
 ```
 #!/bin/bash
@@ -166,6 +167,8 @@ source activate /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/frontier/m
 srun -n42 python3 -u hello_mpi.py
 ```
 
+Now lets uset the example script to edit the one for our exercies. 
+
 Open the submit_hello.sbatch 
 ```
 vi submit_hello.sbatch 
@@ -177,7 +180,7 @@ vi submit_hello.sbatch
 * Edit the source activate line to activate the mpi4p_env we created together. 
 * close and save the file. 
 
-To submit the batch script: 
+To submit the batch script from a fresh shell: 
 ```
 sbatch --export=NONE submit_hello.sbatch
 ``
