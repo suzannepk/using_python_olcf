@@ -1,4 +1,4 @@
-i# Python on Frotnier 
+# Python on Frotnier 
 
 In high-performance computing, Python is heavily used to analyze scientific data on the system.
 OLCF has a "Python on OLCF Systems" guide within the software guide. To find it, go to [https://docs.olcf.ornl.gov](https://docs.olcf.ornl.gov)> Software> Python on OLCF Systems. [Link](https://docs.olcf.ornl.gov/software/python/index.html#python-on-olcf-systems).
@@ -35,9 +35,9 @@ Suppose you want to install the `numpy` package. If you do that in your base env
 
 This next hands-on walks you through setting up a custom environment that we will use later in the training.
 
-For your future refrence, open a new browser tab or window and direct it to [https://docs.olcf.ornl.gov/software/python/index.html#custom-environments](https://docs.olcf.ornl.gov/software/python/index.html#base-environment). Yoo will see tabs under "To create and activate an environment:" that have instructions for creating custom enviroments on each of our resouces.
+For your future refrence, open a new browser tab or window and direct it to [https://docs.olcf.ornl.gov/software/python/index.html#custom-environments](https://docs.olcf.ornl.gov/software/python/index.html#base-environment). You will see tabs under "To create and activate an environment:" that have instructions for creating custom enviroments on each of our resouces.
 
-For this exercise we will create a custom environment called *mpi4pi_env* in your /ccs/proj/<<your_project_id>>. If you are on Odo, you will use /ccsopen/proj/<<your_project_id>>.
+For this exercise we will create a custom environment called *mpi4py_env* in your /ccs/proj/<<your_project_id>>. If you are on Odo, you will use /ccsopen/proj/<<your_project_id>>.
 
 
 For example on Frontier:
@@ -51,15 +51,17 @@ $ module load miniforge3
 ```
 
 We are in a "base" conda environment, but we need to create a new environment using the `conda create` command.
-
+It is highly recommended to create new environments in the "Project Home" directory (on Frontier, this is /ccs/proj/<YOUR_PROJECT_ID>/<YOUR_USER_ID>). This space avoids purges and allows for potential collaboration within your project.
 ```
-$ conda create -p /ccs/proj/<<your_project_id>>/mpi4py_env_frontier python=3.10.13
+$ conda create -p /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/mpi4py_env_frontier python=3.10.13
 modl```
-The "-p" flag specifies the desired path and name of your new virtual environment. The directory structure is case sensitive, so be sure to insert "<YOUR_PROJECT_ID>" as lowercase. Directories will be created if they do not exist already (provided you have write-access in that location).
 
->> ---
-> NOTE: It is highly recommended to create new environments in the "Project Home" directory (on Frontier, this is /ccs/proj/<YOUR_PROJECT_ID>/<YOUR_USER_ID>). This space avoids purges and allows for potential collaboration within your project. It is also recommended, for convenience, that you use environment names that indicate the hostname, as virtual environments created on one system will not necessarily work on others.
->> ---
+The "-p" flag specifies the desired path and name of your new virtual environment. The directory structure is case sensitive, so be sure to insert "<your_project_id>" ad as lowercase. Directories will be created if they do not exist already (provided you have write-access in that location).
+
+
+A Note on Organization:
+I chose to create a `.conda` directory to keep my Python environments organized and separate from a plain directory listing. Within `.conda`, I created a `frontier` subdirectory to store all my environments specifically for Frontier. While both Frontier and Andes mount the home and project areas, an environment built for one machine cannot be assumed to work seamlessly on the other, so it is important to have an orgaization strucutre for your python envoriments from the start.
+
 
 After following the prompts for creating your new environment, the installation should be successful, and you will see something similar to:
 
@@ -71,7 +73,7 @@ Executing transaction: done
 #
 # To activate this environment, use
 #
-#     $ conda activate /ccs/proj/stf007/suzanne/mpi4py_env_frontier     
+#     $ conda activate /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env     
 #
 # To deactivate an active environment, use
 #
@@ -81,7 +83,7 @@ Executing transaction: done
 Due to the specific nature of conda on Frontier, we will be using `source activate` instead of `conda activate` to activate our new environment:
 
 ```bash
-$ source activate /ccs/proj/stf007/suzanne/mpi4py_env_frontier
+$ source activate /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env
 ```
 
 The path to the environment should now be displayed in "( )" at the beginning of your terminal lines, which indicate that you are currently using that specific conda environment.
@@ -93,7 +95,7 @@ $ conda env list
 # conda environments:
 #
 base                     /autofs/nccs-svm1_sw/frontier/miniforge3/23.11.0
-                      *  /ccs/proj/stf007/suzanne/mpi4py_env_frontier
+                      *  /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env
 ```
 
 
@@ -115,7 +117,6 @@ Building from source typically takes longer than a simple `conda install`, so th
 If everything goes well, you should see a "Successfully installed mpi4py" message.
 
 ## Running with Python 
-
 
 To test the mpi4py we just installed in the exercise above, we will use an example Python script called "hello_mpi.py".
 
