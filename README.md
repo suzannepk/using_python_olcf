@@ -53,7 +53,7 @@ $ module load miniforge3
 We are in a "base" conda environment, but we need to create a new environment using the `conda create` command.
 It is highly recommended to create new environments in the "Project Home" directory (on Frontier, this is /ccs/proj/<YOUR_PROJECT_ID>/<YOUR_USER_ID>). This space avoids purges and allows for potential collaboration within your project.
 ```
-$ conda create -p /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/mpi4py_env python=3.10.13
+$ conda create -p /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/frontier/mpi4py_env python=3.10.13
 ```
 
 The "-p" flag specifies the desired path and name of your new virtual environment. The directory structure is case sensitive, so be sure to insert "<your_project_id>" ad as lowercase. Directories will be created if they do not exist already (provided you have write-access in that location).
@@ -74,7 +74,7 @@ Executing transaction: done
 #
 # To activate this environment, use
 #
-#     $ conda activate /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env     
+#     $ conda activate /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/frontier/mpi4py_env
 #
 # To deactivate an active environment, use
 #
@@ -84,7 +84,7 @@ Executing transaction: done
 Due to the specific nature of conda on Frontier, we will be using `source activate` instead of `conda activate` to activate our new environment:
 
 ```bash
-$ source activate /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env
+$ source activate /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/frontier/mpi4py_env
 ```
 
 The path to the environment should now be displayed in "( )" at the beginning of your terminal lines, which indicate that you are currently using that specific conda environment.
@@ -96,7 +96,7 @@ $ conda env list
 # conda environments:
 #
 base                     /autofs/nccs-svm1_sw/frontier/miniforge3/23.11.0
-                      *  /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env
+                      *  /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/frontier/mpi4py_env
 ```
 
 
@@ -137,7 +137,7 @@ cd python_hands-on
 
 On Frontier and Andes, you are already on a compute node once you are in a batch job. Therefore, you only need to use srun if you plan to run parallel-enabled Python, and you do not need to specify srun if you are running a serial application.
 
-$PATH issues are known to occur if not submitting from a fresh login shell, which can result in the wrong environment being detected. To avoid this, you must use the --export=NONE flag during job submission and use unset SLURM_EXPORT_ENV in your job script (before calling srun), which ensures that no previously set environment variables are passed into the batch job, but makes sure that srun can still find your python path:
+$PATH issues are known to occur if not submitting from a fresh login shell, which can result in the wrong environment being detected. To avoid this, you must use the `--export=NONE` flag during job submission and use `unset SLURM_EXPORT_ENV` in your job script (before calling srun), which ensures that no previously set environment variables are passed into the batch job, but makes sure that srun can still find your python path:
 
 ```bash
 $ sbatch --export=NONE submit_hello.sbatch
@@ -161,7 +161,7 @@ date
 module load PrgEnv-gnu
 module load miniforge3
 
-source activate /ccs/proj/stf007/suzanne/.conda/frontier/mpi4py_env
+source activate /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/frontier/mpi4py_env
 
 srun -n42 python3 -u hello_mpi.py
 ```
@@ -179,7 +179,7 @@ vi submit_hello.sbatch
 
 To submit the batch script: 
 ```
-sbatch --export=NONE submit_hello.sbatchsubmit_hello.sbatch
+sbatch --export=NONE submit_hello.sbatch
 ``
 
 Once the batch job makes its way through the queue, it will run the "hello_mpi.py" script with 42 MPI tasks.
