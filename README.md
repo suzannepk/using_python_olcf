@@ -53,7 +53,7 @@ $ module load miniforge3
 We are in a "base" conda environment, but we need to create a new environment using the `conda create` command.
 It is highly recommended to create new environments in the "Project Home" directory (on Frontier, this is /ccs/proj/<YOUR_PROJECT_ID>/<YOUR_USER_ID>). This space avoids purges and allows for potential collaboration within your project.
 ```
-$ conda create -p /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/mpi4py_env_frontier python=3.10.13
+$ conda create -p /ccs/proj/<<your_project_id>>/<<your_user_id>>/.conda/mpi4py_env python=3.10.13
 ```
 
 The "-p" flag specifies the desired path and name of your new virtual environment. The directory structure is case sensitive, so be sure to insert "<your_project_id>" ad as lowercase. Directories will be created if they do not exist already (provided you have write-access in that location).
